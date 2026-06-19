@@ -9,16 +9,18 @@ cask "murmur" do
 
   app "Murmur.app"
 
-  # Murmur is not notarized. Install with --no-quarantine to skip the
-  # "damaged / unidentified developer" Gatekeeper prompt entirely:
-  #   brew install --cask --no-quarantine latent-variable/tap/murmur
-  caveats <<~EOS
-    Murmur is open-source and ad-hoc signed (not notarized).
-    If macOS blocks it, either reinstall with --no-quarantine, or run:
-      xattr -cr "/Applications/Murmur.app"
+  # Murmur is open-source and ad-hoc signed (not notarized). Clear the
+  # download quarantine after install so macOS doesn't say "damaged" —
+  # no manual step, no flag needed.
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-cr", "#{appdir}/Murmur.app"],
+                   sudo: false
+  end
 
+  caveats <<~EOS
     On first run, grant Accessibility (to read selected text) or use
     Clipboard mode (no permission needed). First launch downloads the
-    Kokoro voice model (~340 MB).
+    Kokoro voice model (~340 MB). Everything runs locally.
   EOS
 end

@@ -1,20 +1,23 @@
 cask "yap" do
-  version "0.9.2"
-  sha256 "6afa3f4d48b06a6c042e71b9a1fdf42f306b1b14c1c94db30dc5d50abe145079"
+  version "0.9.3"
+  sha256 "be288675544b8f2dccc0f82530fb9999758cce0d3a22a765b62b9a477a8ca3ea"
 
   url "https://github.com/latent-variable/Yap/releases/download/v#{version}/Yap-#{version}.dmg"
   name "Yap"
-  desc "Talk to AI, faster — local voice + dictation for your Mac and AI agents"
+  desc "Local text-to-speech and dictation"
   homepage "https://github.com/latent-variable/Yap"
+
+  depends_on arch: :arm64
+  depends_on macos: :sonoma
 
   app "Yap.app"
 
-  # Yap is open-source and ad-hoc signed (not notarized). Clear the download
+  # Yap is not notarized. Clear the download
   # quarantine after install so macOS doesn't say "damaged" — no manual step.
-  postflight do
-    system_command "/usr/bin/xattr",
-                   args: ["-cr", "#{appdir}/Yap.app"],
-                   sudo: false
+  postflight_steps do
+    run "/usr/bin/xattr",
+        args: ["-cr", "{{appdir}}/Yap.app"],
+        sudo: false
   end
 
   caveats <<~EOS

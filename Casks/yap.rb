@@ -12,7 +12,7 @@ cask "yap" do
 
   app "Yap.app"
 
-  # Yap is open-source and ad-hoc signed (not notarized). Clear the download
+  # Yap is not notarized. Clear the download
   # quarantine after install so macOS doesn't say "damaged" — no manual step.
   postflight_steps do
     run "/usr/bin/xattr",

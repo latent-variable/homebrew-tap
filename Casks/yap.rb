@@ -1,6 +1,6 @@
 cask "yap" do
-  version "0.9.2"
-  sha256 "6afa3f4d48b06a6c042e71b9a1fdf42f306b1b14c1c94db30dc5d50abe145079"
+  version "0.9.3"
+  sha256 "be288675544b8f2dccc0f82530fb9999758cce0d3a22a765b62b9a477a8ca3ea"
 
   url "https://github.com/latent-variable/Yap/releases/download/v#{version}/Yap-#{version}.dmg"
   name "Yap"
